@@ -32,3 +32,62 @@ int main(){
 	findColSum(dPtr,sum2,N,M); 
 	showData(sum2,1,M);
 }
+void showData(double * dptr, int N,int M){
+    cout << fixed << setprecision(2);
+    for(int i = 0; i < N*M; i++){
+        cout << *(dptr+i);
+        if((i+1)%M==0) cout << endl;
+        else cout << " ";
+    }
+}
+
+void randData(double * dptr, int N ,int M){
+    for(int i = 0; i < N*M; i++){
+        *(dptr+i) = (rand()%101)/100.0;
+    }
+}
+
+void findRowSum(const double *dptr,double * aptr,int roll ,int col) 
+{
+	//ส่งในข้อย่อยผิดแต่ส่งโค้ดรวมถูก
+	/* int aind=0;
+	for(int i=0;i<roll*col;i++)
+	{
+		*(aptr+aind)+=*(dptr+i);
+		if((i+1)%col==0)aind++;
+	} */
+	int aind=0;
+	double sumroll=0;
+	for(int i=0;i<roll*col;i++)
+	{
+		sumroll+=*(dptr+i);
+		if((i+1)%col==0)
+		{
+		*(aptr+(aind++))=sumroll;
+		sumroll=0;
+		}
+	}
+}
+void findColSum(const double *dptr,double * aptr,int roll ,int col) 
+{
+	//ส่งในข้อย่อยผิดแต่ส่งโค้ดรวมถูก
+	/* int aind=0;
+	for(int i=0;i<roll*col;i++)
+	{
+		*(aptr+aind)+=*(dptr+i);
+		aind++;
+		if((i+1)%col==0)aind=0;
+	} */
+	int ind=0;
+	double sumcol[col];
+	for(int i=0;i<roll*col;i++)
+	{
+	    sumcol[ind]+=*(dptr+i);
+		ind++;
+		if((i+1)%col==0)ind=0;
+	}
+	for(int i=0;i<col;i++)
+	{
+	    *(aptr+i)=sumcol[i];
+	}
+}
